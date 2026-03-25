@@ -1,4 +1,4 @@
-# COM617 — Automated Network Troubleshooting System
+# COM617 - Automated Network Troubleshooting System
 ### Monitor -> Analyse -> React -> Report (MARR Framework)
 
 **Module:** COM617 Industrial Consulting Project  
@@ -73,18 +73,18 @@ User group check:
 
 ### Manual (step by step)
 
-    # Step 1 — Mattermost + PostgreSQL
+    # Step 1 - Mattermost + PostgreSQL
     docker compose up -d
     docker compose ps
 
-    # Step 2 — Containerlab network
+    # Step 2 - Containerlab network
     sudo containerlab deploy --topo containerlab/topology.yml
 
-    # Step 3 — Python alert receiver
+    # Step 3 - Python alert receiver
     cd python && python3 alert_receiver.py > /tmp/marr_receiver.log 2>&1 &
     cd ..
 
-    # Step 4 — Verify
+    # Step 4 - Verify
     curl -s http://localhost:5000/health | python3 -m json.tool
 
 ---
@@ -103,7 +103,7 @@ User group check:
     # Watch receiver log
     tail -f /tmp/marr_receiver.log
 
-    # Mattermost UI — open in browser
+    # Mattermost UI - open in browser
     # http://localhost:8065
 
 ---
@@ -133,7 +133,7 @@ Expected response:
     sudo docker exec clab-com617-marr-lab-router1 ip link set eth1 down
 
     # Watch OSPF reconverge on router2
-    sudo docker exec clab-com617-marr-lab-router2 vtysh -c "show ip ospf neighbor"
+    sudo docker exec clab-com617-marr-lab-router2 vtysh -c "show ip ospf neighbour."
 
     # Restore
     sudo docker exec clab-com617-marr-lab-router1 ip link set eth1 up
@@ -144,24 +144,24 @@ Expected response:
 
 ### Automated (recommended)
 
-    # Standard stop — preserves Mattermost data
+    # Standard stop - preserves Mattermost data
     ansible-playbook scripts/lab-stop.yml
 
-    # Full wipe — removes all Docker volumes
+    # Full wipe - removes all Docker volumes
     ansible-playbook scripts/lab-stop.yml --extra-vars "wipe_data=true"
 
 ### Manual (step by step)
 
-    # Step 1 — Stop Python receiver
+    # Step 1 - Stop Python receiver
     pkill -f alert_receiver.py
 
-    # Step 2 — Destroy Containerlab
+    # Step 2 - Destroy Containerlab
     sudo containerlab destroy --topo containerlab/topology.yml
 
-    # Step 3 — Stop Docker Compose
+    # Step 3 - Stop Docker Compose
     docker compose down
 
-    # Step 4 — Verify
+    # Step 4 - Verify
     docker ps | grep -E "marr|clab"
 
 ---
@@ -176,7 +176,7 @@ Expected response:
 | Port 5000 already in use         | pkill -f alert_receiver.py                                 |
 | MATTERMOST_WEBHOOK_URL not set   | Check .env exists in repo root                             |
 | Mattermost not reachable         | docker compose up -d                                       |
-| BGP shows (Policy)               | Normal for FRR lab — peers are up                          |
+| BGP shows (Policy)               | Normal for FRR lab - peers are up                          |
 | OSPF not converged               | Wait 30s after deploy                                      |
 
 ---
@@ -200,4 +200,4 @@ Expected response:
 
 ---
 
-*COM617 Industrial Consulting Project — Southampton Solent University — 2025/26*
+*COM617 Industrial Consulting Project - Southampton Solent University - 2025/26*
